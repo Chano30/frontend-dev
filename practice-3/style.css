@@ -1,0 +1,60 @@
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.avatar{
+  background-image: url("https://picsum.photos/id/237/200/300");
+  background-position: center;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+
+.avatar::before,
+.avatar::after{
+  --scale: 0;
+  --bg-color: #333;
+  --size: 10px;
+  position: absolute;
+  left: 50%;
+  top: -.25rem;
+  transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+  transition: 150ms transform;
+  transform-origin: bottom center;
+}
+
+.avatar::before{
+  --translate-y: calc(-100% - var(--size));
+
+  content: attr(data-tooltip);
+  text-align: center;
+  background: var(--bg-color);
+  color: white;
+  padding: .5rem;
+  border-radius: .25rem;
+}
+
+.avatar:hover::before,
+.avatar:hover::after{
+  --scale: 1;
+}
+
+.avatar::after{
+  --translate-y: calc(-1 * var(--size));
+  content: "";
+  border: var(--size) solid transparent;
+  border-top-color: var(--bg-color);
+  transform-origin: top center;
+}
